@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Task List
+{% endblock %}
+
+{% block content %}
+<h1>Task List</h1>
+<button type="button" class="btn btn-outline-success">Create Task</button>
+
+<div class="list-group">
+    {% for task in tasks %}
+        <a href="#" class="list-group-item list-group-item-action">{{ task.title }}
+        <span class="badge rounded-pill text-bg-primary">{{ task.priority }}</span>
+        <span class="badge rounded-pill text-bg-info">{{ task.status }}</span>
+        </a>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+
