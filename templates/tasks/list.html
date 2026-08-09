@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Task List
+Список задач
 {% endblock %}
 
 {% block content %}
-<h1>Task List</h1>
-<button type="button" class="btn btn-outline-success">Create Task</button>
-
-<div class="list-group">
-    {% for task in tasks %}
-        <a href="#" class="list-group-item list-group-item-action">{{ task.title }}
-        <span class="badge rounded-pill text-bg-primary">{{ task.priority }}</span>
-        <span class="badge rounded-pill text-bg-info">{{ task.status }}</span>
+<h2>Список задач</h2>
+<a href="{% url 'task_create' %}" class="btn btn-outline-success">Створити задачу</a>
+{% for task in tasks %}
+    <div class = "list-group my-2"></div>
+<a href="{% url 'task_detail' task.id %}" class="list-group-item list-group-item-action">{{ task.title }}>
+    <div class="list-group">
+        <a href="{% url 'task_detail' task.id %}" class="list-group-item list-group-item-action">{{ task.title }}
+        <span class="badge rounded-pill text-bg-primary">{{ task.get_status_display }}</span>
+        <span class="badge rounded-pill text-bg-info">{{ task.get_priority_display }}</span>
         </a>
-    {% endfor %}
-
-</div>
-
+        <a href="{% url 'task_update' task.id %}" class="btn btn-outline-warning">Редагувати</a>
+        <a href="{% url 'task_delete' task.id %}" class="btn btn-outline-danger">Видалити</a>
+    </div>
+{% endfor %}
 {% endblock %}
-
