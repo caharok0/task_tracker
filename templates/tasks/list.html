@@ -5,18 +5,45 @@
 {% endblock %}
 
 {% block content %}
-<h2>Список задач</h2>
-<a href="{% url 'task_create' %}" class="btn btn-outline-success">Створити задачу</a>
-{% for task in tasks %}
-    <div class = "list-group my-2"></div>
-<a href="{% url 'task_detail' task.id %}" class="list-group-item list-group-item-action">{{ task.title }}>
-    <div class="list-group">
-        <a href="{% url 'task_detail' task.id %}" class="list-group-item list-group-item-action">{{ task.title }}
-        <span class="badge rounded-pill text-bg-primary">{{ task.get_status_display }}</span>
-        <span class="badge rounded-pill text-bg-info">{{ task.get_priority_display }}</span>
-        </a>
-        <a href="{% url 'task_update' task.id %}" class="btn btn-outline-warning">Редагувати</a>
-        <a href="{% url 'task_delete' task.id %}" class="btn btn-outline-danger">Видалити</a>
+<div class="mb-3">
+  <h2>Список задач</h2>
+  <a href="{% url 'tasks:task-create' %}" class="btn btn-outline-success">Створити задачу</a>
+</div>
+
+<div class="mb-3">
+  <form method="get" class="row g-3">
+    <div class="col-md-6">
+      {{ filter_form.status }}
     </div>
-{% endfor %}
+    <div class="col-md-6">
+      {{ filter_form.priority }}
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Фільтрувати</button>
+    </div>
+  </form>
+</div>
+
+<div class="list-group">
+  {% for task in tasks %}
+    <div class="list-group-item">
+      <div class="d-flex justify-content-between align-items-start">
+        <div class="flex-grow-1">
+          <h5 class="mb-1"><a href="{% url 'tasks:task-detail' task.id %}" class="text-decoration-none">{{ task.title }}</a></h5>
+          <p class="mb-2">{{ task.description }}</p>
+          <div>
+            <span class="badge rounded-pill text-bg-primary">{{ task.get_status_display }}</span>
+            <span class="badge rounded-pill text-bg-info">{{ task.get_priority_display }}</span>
+          </div>
+        </div>
+        <div class="ms-2">
+          <a href="{% url 'tasks:task-update' task.id %}" class="btn btn-outline-warning btn-sm">Редагувати</a>
+          <a href="{% url 'tasks:task-delete' task.id %}" class="btn btn-outline-danger btn-sm">Видалити</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <div class="alert alert-info">Немає задач</div>
+  {% endfor %}
+</div>
 {% endblock %}

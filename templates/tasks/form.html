@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+create  {{ task.title }}
+{% endblock %}
+
+{% block content %}
+<h2>Створити задачу</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if object %}
+        <button type="submit" class="btn btn-primary">Оновити</button>
+    {% else %}
+        <button type="submit" class="btn btn-primary">Створити</button>
+    {% endif %}
+</form>
+{% endblock %}
