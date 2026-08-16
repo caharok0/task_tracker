@@ -16,7 +16,7 @@ class Task(models.Model):
     ]
     title = models.CharField(max_length=150, verbose_name='Task Title')
     description = models.TextField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='todo', verbose_name='Task Status')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name='Task Status')
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='medium', verbose_name='Task Priority')
     due_date = models.DateField(null=True, blank=True, verbose_name='Due Date')
     creator = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Task Creator')
